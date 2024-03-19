@@ -1,9 +1,15 @@
+'''
+File: IslandGame.py
+Description: A brief description of this Python module.
+Author: Sherwin john Miranda
+ID: 1104173621
+Username: MIRSY007
+This is my own work as defined by the University's Academic Misconduct Policy.
+'''
+
+
+
 import random 
-
-
-
-
-
 class Pirate():
     def __init__(self,name):
         self.name = name
