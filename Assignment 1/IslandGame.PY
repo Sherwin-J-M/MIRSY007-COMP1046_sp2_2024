@@ -55,37 +55,30 @@ class Compass():
     
 
 class Island():
-    def __init__(self,row,column):
+    def __init__(self,row,column,water_percent):
         self.row = row
         self.column = column
+        self.water_percent = water_percent
         self.map = []
-        # For creation of map
-        self.Unexplored_location = 'U'
-        self.Explored_location = "E"
-        self.Water_location = 'W'
-        self.Treasure_location = "T"
 
     def Creation_island(self):
-        for i in range(self.row):
-            inner_map = []
-            for j in range(self.column):
-                test = random.randint(1,4)
-                if test == 1:
-                    inner_map.append(self.Unexplored_location)
-                elif test == 2:
-                    inner_map.append(self.Explored_location)
-                elif test == 3:
-                    inner_map.append(self.Water_location)
-                elif test == 4:
-                    inner_map.append(self.Treasure_location)
-            self.map.append(inner_map)
+        self.map = [["UE" for j in range(self.column) for i in range(self.row)]]
+        water_tile = int(self.row * self.column * self.water_percent / 100)
+        for i in range(water_tile):
+             row = random.randint(0,self.row - 1)
+             column = random.randint(0,self.column - 1)
+             self.map[row][column] = 'W '
         
+        return self.map
     
-    def Display_island(self):
+    def display_island(self):
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
                 print(self.map[i][j], end = ' ')
             print()
+       
+
+
     
 
 

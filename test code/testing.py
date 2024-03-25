@@ -94,18 +94,22 @@ class game_instruction():
         user_choice = int(input("\nEnter your choice : "))
         if user_choice == 1:
             self.about_Island()
+            self.instruction()
 
         elif user_choice == 2:
             self.about_pirate()
+            self.instruction()
 
         elif user_choice == 3:
             self.about_compass()
+            self.instruction()
 
         elif user_choice == 4:
             self.about_Treasure()
+            self.instruction()
 
         elif user_choice == 5:
-            quit()
+            print()
 
         else:
             print("Invalid input!")
@@ -122,6 +126,7 @@ class game_instruction():
 
     def about_Treasure(self):
         print("\nAbout the Treasure")
+    
 
 # Assigning all 'Class'  to a variable
 
@@ -129,7 +134,7 @@ class game_instruction():
 
 
 
-island_output = Island()
+
 
 
 
@@ -137,16 +142,34 @@ island_output = Island()
 
 class Game():
     def __init__(self,user):
-        self.pirate = Pirate(user)
-        self.Treasure = Treasure()
-        self.compass = Compass()
+        self.user = user
 
     def display_game(self):
-        if self.user_input.upper() == 'Y':
-            user_input = input("Before starting the game, would you like to read the instructions to the game [Y/N] : ")
+        if self.user.upper() == 'Y':
+            user_input = input("\nBefore starting the game, would you like to read the instructions to the game [Y/N]\n")
             if user_input.lower() == 'y':
                 instruction_output = game_instruction()
                 instruction_output.instruction()
+
+                
+            print("\nIsland Difficulty")
+            print("1. Arrd - 10x10 ")
+            print("2. Arrd..rr - 20x10")
+            print("3. Very Arrrrd - 30x30")
+            island_input = input("Select the game dificulty [1/2/3]: ")
+            if island_input == 1:
+                island_size = [10,10]
+                water_density = 10
+            elif island_input == 2:
+                island_size = [20,10]
+                water_density = 20
+            elif island_input == 3:
+                island_size = [30,30]
+                water_density = 35
+            island_output = Island(island_size,water_density)
+            island_output.Creation_island()
+            island_output.Display_island()
+
             user_input = input("\nWhat would you like to name your pirate as? ")
             pirate_output = Pirate(user_input,2,3)
             pirate_output.direction()
@@ -161,8 +184,12 @@ class Game():
 
 
 
+user = input("Would you like to the play the game 'Treasure Island' [Y/N] \n")
+while user.lower()!= 'y' and user.lower() != 'n':
+    print("\nInvalid input\n")
+    user = input("Would you like to the play the game 'Treasure Island' [Y/N] \n")
 
-output = Game('Y')
+output = Game(user)
 
 output.display_game()
         
