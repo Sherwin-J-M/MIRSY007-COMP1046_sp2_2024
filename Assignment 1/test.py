@@ -44,7 +44,7 @@ class Pirate():
     def drink_grog(self):
         self.thirst = 0
         print(f"{self.pirate_name} is drinking grog")
-        print(f"Thirst level : {self.thirst}")
+        print(f"Thirst level : {self.thirst}\n" )
 
     def get_thirst(self):
         return self.thirst
@@ -136,13 +136,43 @@ class Compass():
     def determine_location(self):
         self.treasure_locator = (self.pirate_pos[0] - self.treasure_pos[0]) + (self.pirate_pos[1] - self.pirate_pos[1])
         if self.treasure_locator > 7:
-            print(f"Colder - {self.name} is far from the treasure ")
+            print(f"==============================================\nColder - {self.name} is far from the treasure \n==============================================\n")
         
         elif self.treasure_locator < 7 and self.treasure_locator > 3:
-            print(f"Warmer - {self.name} is quite close to the Treasure")
+            print(f"==============================================\nWarmer - {self.name} is quite close to the Treasure \n==============================================\n")
         
         elif self.treasure_locator < 3:
-            print(f"Hotter - {self.name} is very close to the treasure") 
+            print(f"==============================================\nHotter - {self.name} is very close to the treasure\n==============================================\n") 
+    
+    def display_compass(self):
+      
+        print("                 ________________________")
+        print("                /             |          \.")
+        print("               /            |\ |          \.")
+        print("              /             | \|           \.")
+        print("             /                              \.")
+        print("            /                                \.")
+        print("           /                                  \.")
+        print("          /                                    \.")
+        print("         /                                      \.")
+        print("         |                    /\                 |")
+        print("         |                   /  \                |")
+        print("         |                  /  N \           __  |")
+        print("         |_ \  /\  /       /______\         |_  _|")
+        print("         |   \/  \/        \      /         |__  |")
+        print("         |                  \ S  /               |")
+        print("         |                   \  /                |")
+        print("         \                    \/                 /")
+        print("          \                                     /")
+        print("           \                                   /")
+        print("            \              __                 /")
+        print("             \             |_                /")
+        print("              \            __|              /")
+        print("               \                           / ")
+        print("                \____________|____________/\n")
+
+
+
 
 
 
@@ -259,6 +289,7 @@ class Game():
                     print(f"{pirate_name} cannot move drink grog")
                     user_input = input(f"Drink grog [Y/N] else {pirate_name} dies \n")
                     if user_input.lower() == 'y':
+                        pirate_output.drink_grog()
                         pirate_thirst = 0
 
                 # Island
@@ -272,13 +303,11 @@ class Game():
                 user_compass = input("WOuld you like to see your location in the compass[Y/N] : ")
                 if user_compass.lower() ==  'y':
                     compass_output = Compass(pirate_name,pirate_postition,treasure_postion)
+                    compass_output.display_compass()
                     compass_output.determine_location()
                 display_map = input("\nDo you want to display the map [y/n] \n")
                 if display_map.lower() == 'y':
                     island_output.Display_island()
-                print("pirate postion : ", pirate_postition)
-                print("treasure_postion : ",treasure_postion)
-                user = input("Quit game [Y/N] \n")
                 pirate_thirst += 10
                 print(f"Pirate thirst level : {pirate_thirst}")
             
