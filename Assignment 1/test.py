@@ -1,3 +1,5 @@
+
+
 # import functions
 import random
 
@@ -179,6 +181,10 @@ class game_instruction():
         elif user_choice == '5':
             print("Quitting ...\n\n")
 
+        elif user_choice.lower() == 'quit':
+            print("*** Quitting the game ....  ***")
+            exit()
+
         else:
             print("\n----- Invalid input! -----")
             print("\n--- Please try again :) --")
@@ -187,6 +193,12 @@ class game_instruction():
     def about_Island(self):
         print("\nAbout the Island")
         print("-----------------")
+        print("An Island has a size and a density which are determined by the selected options")
+        print("Islanc consists of :")
+        print(" - UE -> UnExplored area ")
+        print(" - T  -> Treasure")
+        print(" - W  -> Water")
+        print(" - P  -> Pirate")
 
     def about_pirate(self):
         print("\nAbout the Pirate")
@@ -256,7 +268,7 @@ class game_instruction():
         print("\n\nCompass Determines how close the Pirate is from the Treasure")
         print("==================================================================")
         print("|| Feedback |              Description                           ||")
-        print("==================================================================")
+        print("||===============================================================||")
         print("||  Colder  | The player is 7 or more space away from treasure.  ||")
         print("||----------|----------------------------------------------------||")
         print("||  Warmer  | The player is between 3 and 7 spaces.              ||")
@@ -269,19 +281,23 @@ class game_instruction():
         print("-----------------\n")
         print("+----------------------------------------------------------------------------------+")
         print("| 1. This is the main objective of the game. Pirate wins if the treasure is found  |")
-        print("| 2. It is not visible to the pirate                                               |")
+        print("| 2. It is hidden withing the Island                                              |")
         print("| 3. Treasure is placed on the land and is not placed under water                  |")
         print("+----------------------------------------------------------------------------------+\n\n")
 
 
 class Game():
     def display_game(self, user):
+        print("*** Important - If you want to quit the game, Type 'Quit' ***  ")
         if user == 'Y':
             user_input = input(
                 "\nBefore starting the game, would you like to read the instructions to the game [Y/N] : ")
             if user_input.lower() == 'y':
                 instruction_output = game_instruction()
                 instruction_output.instruction()
+            elif user_input.lower() == 'quit':
+                print("*** Quitting the game ....  ***")
+                exit()
             island_size = []
             print("+=====================+")
             print("|   Game Difficulty   |")
@@ -290,16 +306,19 @@ class Game():
             print("| 2. Arrd..rr         |")
             print("| 3. Very Arrrrd      |")
             print("+=====================+")
-            island_input = int(input("Select Difficulty : "))
-            if island_input == 1:
+            island_input = input("Select Difficulty : ")
+            if island_input == '1':
                 island_size = [10, 10]
                 water_density = 10
-            elif island_input == 2:
+            elif island_input == '2':
                 island_size = [20, 10]
                 water_density = 20
-            elif island_input == 3:
+            elif island_input == '3':
                 island_size = [30, 30]
                 water_density = 35
+            elif island_input.lower() == 'quit':
+                print("*** Quitting the game ....  ***")
+                exit()
 
             island_output = Island(
                 island_size[0], island_size[1], water_density)
@@ -309,6 +328,9 @@ class Game():
 
             # Pirate
             user_input = input("\nName your Pirate : ")
+            if user_input.lower() == 'quit':
+                print("*** Quitting the game ....  ***")
+                exit()
             row = random.randint(0, island_size[0])
             column = random.randint(0, island_size[1])
             pirate_output = Pirate(user_input, row, column)
@@ -322,25 +344,32 @@ class Game():
 
                 user_direction = input(
                     "\n\nWhere? \nA) North \nB) South \nC) East \nD) West \nEnter: ")
-                pirate_output.direction(user_direction)
-                pirate_postition = pirate_output.get_direction()
-                find_water = island_output.find_water(pirate_postition)
-                if find_water == True:
-                    print("\nContacted water\n")
+                if user_direction.lower() == 'quit':
+                    print("*** Quitting the game ....  ***")
+                    exit()
+                else:
+                    pirate_output.direction(user_direction)
+                    pirate_postition = pirate_output.get_direction()
+                    find_water = island_output.find_water(pirate_postition)
+                    if find_water == True:
+                        print("\nContacted water\n")
 
-                # Pirate thirst level
-                if pirate_thirst > 50 and pirate_thirst < 74:
-                    print(f"{pirate_name} is feeling thirsty")
-                elif pirate_thirst > 75 and pirate_thirst < 99:
-                    print(f"{pirate_name} is feeling very thirsty")
+                    # Pirate thirst level
+                    if pirate_thirst > 50 and pirate_thirst < 74:
+                        print(f"{pirate_name} is feeling thirsty")
+                    elif pirate_thirst > 75 and pirate_thirst < 99:
+                        print(f"{pirate_name} is feeling very thirsty")
 
-                while pirate_thirst >= 100:
-                    print(f"{pirate_name} cannot move drink grog")
-                    user_input = input(
-                        f"Drink grog [Y/N] else {pirate_name} dies \n")
-                    if user_input.lower() == 'y':
-                        pirate_output.drink_grog()
-                        pirate_thirst = 0
+                    while pirate_thirst >= 100:
+                        print(f"{pirate_name} cannot move drink grog")
+                        user_input = input(
+                            f"Drink grog [Y/N] else {pirate_name} dies \n")
+                        if user_input.lower() == 'y':
+                            pirate_output.drink_grog()
+                            pirate_thirst = 0
+                        elif user_input.lower() == 'quit':
+                            print("*** Quitting the game ....  ***")
+                            exit()
 
                 # Island
                 treasure_postion = island_output.get_treasure_location()
@@ -356,15 +385,24 @@ class Game():
                     compass_output = Compass(
                         pirate_name, pirate_postition, treasure_postion)
                     compass_output.determine_location()
+                elif user_compass.lower() == 'quit':
+                    print("*** Quitting the game ....  ***")
+                    exit()
                 display_map = input(
                     "\nDo you want to display the Treasure map [y/n] \n")
                 if display_map.lower() == 'y':
                     island_output.Display_island()
+                elif display_map.lower() == 'quit':
+                    print("*** Quitting the game ....  ***")
+                    exit()
                 pirate_thirst += 10
                 print(f"Pirate thirst level : {pirate_thirst}")
 
 
 user = input("Would you like to the play the game 'Treasure Island' [Y/N] : ")
+if user.lower() == 'quit':
+    print("*** Quitting the game ....  ***")
+    exit()
 while user.lower() != 'y' and user.lower() != 'n':
     print("\nInvalid input\n")
     user = input(
