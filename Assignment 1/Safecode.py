@@ -1,3 +1,11 @@
+'''
+File: TreasureIsland.py
+Description: A brief description of this Python module.
+Author: Sherwin John Miranda
+ID: 110417362
+Username: MIRSY007
+This is my own work as defined by the University's Academic Misconduct Policy.
+'''
 
 
 # import functions
@@ -5,7 +13,7 @@ import random
 
 
 # Creation of Class 'Pirate'
-class Pirate():
+class PIRATE():
     def __init__(self, name, row, column):
         self.__pirate_name = name
         self.__row = row
@@ -77,7 +85,7 @@ class Pirate():
         return self.__pirate_direction
     
 # Island creation
-class Island():
+class ISLAND():
     # These parameter are given in the class "GAME"
     def __init__(self, row, column, water_percent):
         self.__row = row
@@ -103,7 +111,7 @@ class Island():
             self.__map[row][column] = 'W '
     
     # Randomly placing the Treasure within the map
-    def Treasure(self):
+    def set_Treasure(self):
         # To give a random location for the Treasure
         t_row = random.randint(0, self.__row - 1)
         t_column = random.randint(0, self.__column - 1)
@@ -186,7 +194,7 @@ class Island():
         print(r"     \________________________________________________________________/")
 
 # Compass creation to determine the treasure
-class Compass():
+class COMPASS():
     # These parameter  are provided in the "GAME" class
     def __init__(self, name, pirate_pos, treasure_pos):
         self.__name = name
@@ -211,9 +219,9 @@ class Compass():
             print(f"==============================================\nHotter - {self.__name} is very close to the treasure\n==============================================\n")
 
 # Basic instructions for the user to understand the game
-class game_instruction():
+class GAME_INSTRUCTION():
     # This entire section is just about game instruction
-    def instruction(self):
+    def Instruction(self):
         print("\n+===========================+  \n|      Game Instruction     |\n+===========================+")
         print("| 1. About the Island       | \n----------------------------- \n| 2. About the pirate       | \n----------------------------- \n| 3. About the compass      | \n----------------------------- \n| 4. About the treasure     | \n----------------------------- \n| 5. Quit game instruction? | \n+===========================+\n")
         # User gives their input
@@ -222,19 +230,19 @@ class game_instruction():
         # Once users enter their input, the chosen shows the required instruction by accessing from the below respective function
         if user_choice == '1':
             self.about_Island()
-            self.instruction()
+            self.Instruction()
 
         elif user_choice == '2':
-            self.about_pirate()
-            self.instruction()
+            self.about_Pirate()
+            self.Instruction()
 
         elif user_choice == '3':
-            self.about_compass()
-            self.instruction()
+            self.about_Compass()
+            self.Instruction()
 
         elif user_choice == '4':
             self.about_Treasure()
-            self.instruction()
+            self.Instruction()
 
         elif user_choice == '5':
             print("Quitting ...\n\n")
@@ -246,7 +254,7 @@ class game_instruction():
         else:
             print("\n----- Invalid input! -----")
             print("\n--- Please try again :) --")
-            self.instruction()
+            self.Instruction()
 
     def about_Island(self):
         print("\nAbout the Island")
@@ -258,7 +266,7 @@ class game_instruction():
         print(" - W  -> Water")
         print(" - P  -> Pirate")
 
-    def about_pirate(self):
+    def about_Pirate(self):
         print("\nAbout the Pirate")
         print("-----------------\n\n")
         print(r"                  ______  ")
@@ -295,7 +303,7 @@ class game_instruction():
         print(r"                |__|     \__/        ------> Wooden leg")
         print("")
 
-    def about_compass(self):
+    def about_Compass(self):
         print("\nAbout the Compass")
         print("-----------------\n\n")
         print(r"                 _______________________")
@@ -344,85 +352,86 @@ class game_instruction():
         print("+----------------------------------------------------------------------------------+\n\n")
 
 # Creation of Game 
-class Game():
+class GAME():
     def display_game(self, user):
         print("*** Important - If you want to quit the game, Type 'Quit' ***  ")
         if user == 'Y':
-            user_input = input(
+            read_instruction_input = input(
                 "\nBefore starting the game, would you like to read the instructions to the game [Y/N] : ")
-            if user_input.lower() == 'y':
-                instruction_output = game_instruction()
-                instruction_output.instruction()
-            elif user_input.lower() == 'quit':
+            if read_instruction_input.lower() == 'y':
+                instruction_output = GAME_INSTRUCTION()
+                instruction_output.Instruction()
+            elif read_instruction_input.lower() == 'quit':
                 print("*** Quitting the game ....  ***")
                 exit()
+
             island_size = []
-            print("+=====================+")
+            print("\n+=====================+")
             print("|   Game Difficulty   |")
             print("+=====================+")
             print("| 1. Arrd             |")
             print("| 2. Arrd..rr         |")
             print("| 3. Very Arrrrd      |")
             print("+=====================+")
-            island_input = input("Select Difficulty : ")
+            Island_size_input = input("Select Difficulty : ")
             # This is the cnahge the map size according to the users input
-            if island_input == '1':
+            if Island_size_input == '1':
                 island_size = [10, 10]
                 water_density = 10
-            elif island_input == '2':
+            elif Island_size_input == '2':
                 island_size = [20, 10]
                 water_density = 20
-            elif island_input == '3':
+            elif Island_size_input == '3':
                 island_size = [30, 30]
                 water_density = 35
-            elif island_input.lower() == 'quit':
+            elif Island_size_input.lower() == 'quit':
                 print("*** Quitting the game ....  ***")
                 exit()
             
             # Island
-            island_output = Island(
-                island_size[0], island_size[1], water_density)
-            island_output.Creation_island()
-            island_output.Treasure()
-            island_output.Display_island()
-            Mapsize = island_output.get_mapsize()
+            Island_Function = ISLAND(island_size[0], island_size[1], water_density)
+            Island_Function.Creation_island()
+            Island_Function.set_Treasure()
+            Island_Function.Display_island()
+            Mapsize = Island_Function.get_mapsize()
 
             # Pirate
             user_input = input("\nName your Pirate : ")
             if user_input.lower() == 'quit':
                 print("*** Quitting the game ....  ***")
                 exit()
-            row = random.randint(0, island_size[0])
-            column = random.randint(0, island_size[1])
-            pirate_output = Pirate(user_input, row, column)
-            pirate_name = pirate_output.get_name()
-            pirate_thirst = pirate_output.get_thirst()
+            pirate_postion_row = random.randint(0, island_size[0])
+            pirate_postion_column = random.randint(0, island_size[1])
+            Pirate_Function = PIRATE(user_input, pirate_postion_row, pirate_postion_column)
+            pirate_name = Pirate_Function.get_name()
+            pirate_thirst = Pirate_Function.get_thirst()
 
+            # Used to create  while loop
             user = 'n'
             while user.lower() != 'y':
-                pirate_original_postion = pirate_output.get_direction()
+                pirate_original_postion = Pirate_Function.get_direction()
                 print(f"pirate original = {pirate_original_postion}")
                 # If False, It does not allow the pirate to walk beyond the maps border and goes on a constant loop till he changes direction which is within the map
-                pirate_output.direction(Mapsize)
-                pirate_postition = pirate_output.get_direction()
+                Pirate_Function.direction(Mapsize)
+                pirate_postition = Pirate_Function.get_direction()
                 # To determine if Pirate is walking on water or not
                 
                 print(f"pirate postion = {pirate_postition}")
                 print(f"pirate postion[0] = {pirate_postition[0]}")
                 print(f"pirate postion[1] = {pirate_postition[1]}")
-                find_water = island_output.find_water(pirate_postition)
+                find_water = Island_Function.find_water(pirate_postition)
 
               
                 # If true, It does not allow the pirate to walk on water, so goes on a constant loop till he walks only on land or finds the treasure
                 while find_water == True:
-                    pirate_output.get_direction() == pirate_original_postion
-                    pirate_postition = pirate_output.get_direction()
+                    Pirate_Function.get_direction() == pirate_original_postion
+                    pirate_postition = Pirate_Function.get_direction()
                     print(f"new : {pirate_postition}")
                     print("You have contacted water. Change your direction else your drown")
-                    pirate_output.direction(Mapsize)
-                    pirate_postition = pirate_output.get_direction()
+                    Pirate_Function.direction(Mapsize)
+                    pirate_postition = Pirate_Function.get_direction()
                     print(f"new direction : {pirate_postition}")
-                    find_water = island_output.find_water(pirate_postition)
+                    find_water = Island_Function.find_water(pirate_postition)
                         
                     # Pirate thirst level
                     if pirate_thirst > 50 and pirate_thirst < 74:
@@ -435,7 +444,7 @@ class Game():
                         user_input = input(
                             f"Drink grog [Y/N] else {pirate_name} dies \n")
                         if user_input.lower() == 'y':
-                            pirate_output.drink_grog()
+                            Pirate_Function.drink_grog()
                             pirate_thirst = 0
                         elif user_input.lower() == 'quit':
                             print("*** Quitting the game ....  ***")
@@ -443,27 +452,27 @@ class Game():
                     
                 
                 # Island
-                treasure_postion = island_output.get_treasure_location()
-                island_output.Pirate_location(pirate_postition)
-                if treasure_postion == pirate_postition:
+                Treasure_postion = Island_Function.get_treasure_location()
+                Island_Function.Pirate_location(pirate_postition)
+                if Treasure_postion == pirate_postition:
                     print("Congrajulation you found the Treasure")
-                    island_output.display_treasure()
+                    Island_Function.display_treasure()
                     exit()
 
-                user_compass = input(
+                Compass_input = input(
                     "Would you like to see your location in the compass[Y/N] : ")
-                if user_compass.lower() == 'y':
-                    compass_output = Compass(
-                        pirate_name, pirate_postition, treasure_postion)
-                    compass_output.determine_location()
-                elif user_compass.lower() == 'quit':
+                if Compass_input.lower() == 'y':
+                    Compass_Function = COMPASS(
+                        pirate_name, pirate_postition, Treasure_postion)
+                    Compass_Function.determine_location()
+                elif Compass_input.lower() == 'quit':
                     print("*** Quitting the game ....  ***")
                     exit()
-                display_map = input(
+                Display_Map_input = input(
                     "\nDo you want to display the Treasure map [y/n] \n")
-                if display_map.lower() == 'y':
-                    island_output.Display_island()
-                elif display_map.lower() == 'quit':
+                if Display_Map_input.lower() == 'y':
+                    Island_Function.Display_island()
+                elif Display_Map_input.lower() == 'quit':
                     print("*** Quitting the game ....  ***")
                     exit()
                 pirate_thirst += 10
@@ -479,6 +488,6 @@ while user.lower() != 'y' and user.lower() != 'n':
     user = input(
         "Would you like to the play the game 'Treasure Island' [Y/N] \n")
 
-output = Game()
+output = GAME()
 
 output.display_game(user.upper())
