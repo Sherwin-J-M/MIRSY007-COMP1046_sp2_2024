@@ -22,26 +22,22 @@ class Pirate():
         if self.pirate_direction.upper() == 'NORTH' or self.pirate_direction.upper() == 'A':
             self.row -= 1
             self.pirate_postion = [self.row, self.column]
-            print(f"\n=================================\n{
-                  self.pirate_name} is moving a tile North \n=================================\n")
+            print(f"\n=================================\n{self.pirate_name} is moving a tile North \n=================================\n")
 
         elif self.pirate_direction.upper() == 'SOUTH' or self.pirate_direction.upper() == 'B':
             self.row += 1
             self.pirate_postion = [self.row, self.column]
-            print(f"\n=================================\n{
-                  self.pirate_name} is moving a tile SOUTH \n=================================\n")
+            print(f"\n=================================\n{self.pirate_name} is moving a tile SOUTH \n=================================\n")
 
         elif self.pirate_direction.upper() == 'WEST' or self.pirate_direction.upper() == 'C':
             self.column -= 1
             self.pirate_postion = [self.row, self.column]
-            print(f"\n=================================\n{
-                  self.pirate_name} is moving a tile WEST \n=================================\n")
+            print(f"\n=================================\n{self.pirate_name} is moving a tile WEST \n=================================\n")
 
         elif self.pirate_direction.upper() == 'EAST' or self.pirate_direction.upper() == 'D':
             self.column += 1
             self.pirate_postion = [self.row, self.column]
-            print(f"\n=================================\n{
-                  self.pirate_name} is moving a tile EAST \n=================================\n")
+            print(f"\n=================================\n{self.pirate_name} is moving a tile EAST \n=================================\n")
 
     def get_direction(self):
         return self.pirate_postion
@@ -53,7 +49,7 @@ class Pirate():
 
     def get_thirst(self):
         return self.thirst
-
+    
 
 class Island():
     def __init__(self, row, column, water_percent):
@@ -145,16 +141,13 @@ class Compass():
         self.treasure_locator = (
             self.pirate_pos[0] - self.treasure_pos[0]) + (self.pirate_pos[1] - self.pirate_pos[1])
         if self.treasure_locator > 7:
-            print(f"==============================================\nColder - {
-                  self.name} is far from the treasure \n==============================================\n")
+            print(f"==============================================\nColder - {self.name} is far from the treasure \n==============================================\n")
 
         elif self.treasure_locator < 7 and self.treasure_locator > 3:
-            print(f"==============================================\nWarmer - {
-                  self.name} is quite close to the Treasure \n==============================================\n")
+            print(f"==============================================\nWarmer - {self.name} is quite close to the Treasure \n==============================================\n")
 
         elif self.treasure_locator < 3:
-            print(f"==============================================\nHotter - {
-                  self.name} is very close to the treasure\n==============================================\n")
+            print(f"==============================================\nHotter - {self.name} is very close to the treasure\n==============================================\n")
 
 
 class game_instruction():
