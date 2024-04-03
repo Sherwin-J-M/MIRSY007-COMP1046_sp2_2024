@@ -438,20 +438,35 @@ class GAME():
                         print("+=======================+\n")
 
             # Pirate
+            print(r"_______ ______  _______       _      _______  ___    ___  ____  _______")
+            print(r"|_   _| |  _  \ |  ____|     / \    | ______| | |    | | |  _ \ |  ____|")
+            print(r"  | |   | |_| | |  |___     / _ \   | |_____  | |    | | | |_| ||  |___")
+            print(r"  | |   |    _/ |   ___|   / /_\ \  |_____  | | |    | | |    _/|   ___|")
+            print(r"  | |   | |\ \  |  |___   / _____ \  _____| | | |____| | | |\ \ |  |___")
+            print(r"  |_|   |_| \_\ |______| /_/     \_\|_______| |________| |_| \_\|______|")
+            print("======================================================================== ")
+            print(r"                             _______ _________ __            _      ___   __  _____")
+            print(r"                             |_   _| | ______| | |          / \     |  \  | | |  _ \.")
+            print(r"                               | |   | |_____  | |         / _ \    |   \ | | | | \ \.")
+            print(r"                               | |   |_____  | | |        / /_\ \   | |\ \| | | |  | |")
+            print(r"                              _| |_   _____| | | |____   / _____ \  | | \   | | |_/ /")
+            print(r"                             |_____| |_______| |______| /_/     \_\ | |  \__| |____/")
+            print("                             ==========================================================")
+
             loop = True
             while loop == True:
-                User_name_input = input("\nName your Pirate : ")
+                User_name_input = input("\nAhoy there, matey! What be yer name? : ")
                 
                 if not User_name_input.strip():
-                    print("Cannot have a blank or empty name")
+                    print("Arrr, tell me your name,")
                     loop = True
 
                 elif len(User_name_input) < 3:
-                    print("Name too short")
+                    print("Arrr, that name be too short for a pirate!")
                     loop = True
                 
                 elif User_name_input.isdigit():
-                    print("Your name is numerical ?")
+                    print("Shiver me timbers! Ye be givin' me numbers instead of a name!")
 
                 elif User_name_input.lower() == 'quit':
                     print("*** Quitting the game ....  ***")
@@ -459,6 +474,8 @@ class GAME():
                 
                 else:
                     loop = False
+                
+                print(f"\nAhoy, {User_name_input}! Ye be a fine pirate indeed!\n")
             
 
             # Island
@@ -473,21 +490,24 @@ class GAME():
 
             loop = True
             while loop == True:
-                Island_size_input = input("Select Difficulty : ")
+                Island_size_input = input("Avast, ye landlubber! What kind o' challenge be ye lookin' for? : ")
                 # This is the cnahge the map size according to the users input
                 if Island_size_input == '1':
                     island_size = [10, 10]
                     water_density = 10
+                    print("Ye be settlin' for Arrd, aye?")
                     loop = False
 
                 elif Island_size_input == '2':
                     island_size = [20, 10]
                     water_density = 20
+                    print("Ye think ye be ready for Arrd..rr, do ye?")
                     loop = False
                     
                 elif Island_size_input == '3':
                     island_size = [30, 30]
                     water_density = 35
+                    print("Ye be bold to choose Very Arrrrd!")
                     loop = False
                     
                 elif Island_size_input.lower() == 'quit':
@@ -599,27 +619,6 @@ class GAME():
                         print("| *** Invalid Input *** |")
                         print("+=======================+\n")
 
-                # loop = True        
-                # while loop == True:    
-                #     Display_Map_input = input(
-                #         "\nDo you want to display the Treasure map [y/n] \n")
-                    
-                #     if Display_Map_input.lower() == 'y':
-                #         Island_Function.Display_island()
-                #         loop = False
-                    
-                #     elif Display_Map_input.lower() == 'n':
-                #         loop = False
-
-                #     elif Display_Map_input.lower() == 'quit':
-                #         print("*** Quitting the game ....  ***")
-                #         exit()
-                    
-                #     else:
-                #         print("\n+=======================+")
-                #         print("| *** Invalid Input *** |")
-                #         print("+=======================+\n")
-
                 Island_Function.Pirate_location(pirate_position)
 
                 Pirate_Function.set_thirst()
@@ -647,9 +646,3 @@ output = GAME()
 
 output.display_game(user.upper())
 
-
-
-# Display the map before changing direction - Done
-# option to put pirate at the centre fo the map
-# display the explored areas - Done
-# Display pirate details - Done
