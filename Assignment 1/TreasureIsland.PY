@@ -40,8 +40,7 @@ class PIRATE():
                 if self.__row > 0:
                     self.__row -= 1
                     self.__pirate_postion = [self.__row, self.__column]
-                    print(f"\n=================================\n{
-                          self.__pirate_name} is moving a tile North \n=================================\n")
+                    print(f"\n=================================\n{self.__pirate_name} is moving a tile North \n=================================\n")
                     loop = False
                 else:
                     print("Cannot go outside the map")
@@ -53,8 +52,7 @@ class PIRATE():
                 if self.__row < island[0] - 1:
                     self.__row += 1
                     self.__pirate_postion = [self.__row, self.__column]
-                    print(f"\n=================================\n{
-                          self.__pirate_name} is moving a tile SOUTH \n=================================\n")
+                    print(f"\n=================================\n{self.__pirate_name} is moving a tile SOUTH \n=================================\n")
                     loop = False
                 else:
                     print("Cannot go outside the map")
@@ -64,8 +62,7 @@ class PIRATE():
                 if self.__column > 0:
                     self.__column -= 1
                     self.__pirate_postion = [self.__row, self.__column]
-                    print(f"\n=================================\n{
-                          self.__pirate_name} is moving a tile WEST \n=================================\n")
+                    print(f"\n=================================\n{self.__pirate_name} is moving a tile WEST \n=================================\n")
                     loop = False
                 else:
                     print("Cannot go outside the map")
@@ -75,8 +72,7 @@ class PIRATE():
                 if self.__column < island[1] - 1:
                     self.__column += 1
                     self.__pirate_postion = [self.__row, self.__column]
-                    print(f"\n=================================\n{
-                          self.__pirate_name} is moving a tile EAST \n=================================\n")
+                    print(f"\n=================================\n{self.__pirate_name} is moving a tile EAST \n=================================\n")
                     loop = False
                 else:
                     print("Cannot go outside the map")
@@ -176,7 +172,7 @@ class ISLAND():
             t_row = random.randint(0, self.__row - 1)
             t_column = random.randint(0, self.__column - 1)
         # Just used to verify if treasure is implemented within the map or not
-        self.__map[t_row][t_column] = 'T '
+        # self.__map[t_row][t_column] = 'T '
         # This is for Determine treasure location whihc is used in the class "Compass"
         self.__Treasure_location = [t_row, t_column]
 
@@ -186,9 +182,9 @@ class ISLAND():
         return self.__mapsize
 
     # Add Pirate to the map
-    def Pirate_location(self, pirate_location):
+    def Pirate_location(self, pirate_location):     
         self.__map[pirate_location[0]][pirate_location[1]] = 'P '
-
+        
     def set_Explored_Location(self, pirate_location):
         self.__map[pirate_location[0]][pirate_location[1]] = 'E '
 
@@ -271,16 +267,13 @@ class COMPASS():
 
         # Displays the message based on the distance
         if self.__treasure_locator > 7:
-            print(f"==============================================\nColder - {
-                  self.__name} is far from the treasure \n==============================================\n")
+            print(f"==============================================\nColder - {self.__name} is far from the treasure \n==============================================\n")
 
-        elif self.__treasure_locator < 7 and self.__treasure_locator > 3:
-            print(f"==============================================\nWarmer - {
-                  self.__name} is quite close to the Treasure \n==============================================\n")
+        elif self.__treasure_locator <= 7 and self.__treasure_locator > 3:
+            print(f"==============================================\nWarmer - {self.__name} is quite close to the Treasure \n==============================================\n")
 
-        elif self.__treasure_locator < 3:
-            print(f"==============================================\nHotter - {
-                  self.__name} is very close to the treasure\n==============================================\n")
+        elif self.__treasure_locator <= 3:
+            print(f"==============================================\nHotter - {self.__name} is very close to the treasure\n==============================================\n")
 
 # Basic instructions for the user to understand the game
 
@@ -328,6 +321,7 @@ class GAME_INSTRUCTION():
         print("An Island has a size and a density which are determined by the selected options")
         print("Islanc consists of :")
         print(" - UE -> UnExplored area ")
+        print(" - E  -> Explored area")
         print(" - T  -> Treasure")
         print(" - W  -> Water")
         print(" - P  -> Pirate")
@@ -367,6 +361,7 @@ class GAME_INSTRUCTION():
         print(r"                |  |     |  |")
         print(r"                |  |     |  |")
         print(r"                |__|     \__/        ------> Wooden leg")
+        print("\n*** important note : Pirate cant come in contact with water due to his wooden leg ***")
         print("")
 
     def about_Compass(self):
@@ -413,7 +408,7 @@ class GAME_INSTRUCTION():
         print("-----------------\n")
         print("+----------------------------------------------------------------------------------+")
         print("| 1. This is the main objective of the game. Pirate wins if the treasure is found  |")
-        print("| 2. It is hidden withing the Island                                              |")
+        print("| 2. It is hidden within the Island                                                |")
         print("| 3. Treasure is placed on the land and is not placed under water                  |")
         print("+----------------------------------------------------------------------------------+\n\n")
 
@@ -422,12 +417,14 @@ class GAME_INSTRUCTION():
 
 class GAME():
     def display_game(self, user):
-        print("*** Important - If you want to quit the game, Type 'Quit' ***  ")
+        print("\n+---------------------------------------------------------------+")
+        print("| *** Important - If you want to quit the game, Type 'Quit' *** |")
+        print("+---------------------------------------------------------------+")
         if user == 'Y':
             loop = True
             while loop == True:
                 read_instruction_input = input(
-                    "\nBefore starting the game, would you like to read the instructions to the game [Y/N] : ")
+                    "\nArrr, matey! Be ye wantin' to read the game's instructions before we set sail? [Y/N] : ")
 
                 if read_instruction_input.lower() == 'y':
                     instruction_output = GAME_INSTRUCTION()
@@ -554,8 +551,27 @@ class GAME():
             Mapsize = Island_Function.get_mapsize()
 
             # Pirate
-            pirate_postion_row = random.randint(0, island_size[0])
-            pirate_postion_column = random.randint(0, island_size[1])
+            loop = True
+            while loop == True:
+                Pirate_location_input = input("\n\nWhere be ye wantin to start yer adventure matey? \n1. Random location \n2. Centre of the Map \nInput : " )
+                if Pirate_location_input == '1':
+                    pirate_postion_row = random.randint(0, island_size[0] - 1)
+                    pirate_postion_column = random.randint(0, island_size[1] - 1)
+                    loop = False
+                elif Pirate_location_input == '2':
+                    pirate_postion_row = island_size[0]//2
+                    pirate_postion_column = island_size[1]//2
+                    loop = False
+
+                elif Pirate_location_input.lower() == 'quit':
+                    print("*** Quitting the game ....  ***")
+                    exit()
+
+                else:
+                    print("\n+=======================+")
+                    print("| *** Invalid Input *** |")
+                    print("+=======================+\n")
+
             Pirate_Function = PIRATE(
                 User_name_input, pirate_postion_row, pirate_postion_column)
             pirate_name = Pirate_Function.get_name()
@@ -577,16 +593,16 @@ class GAME():
 
                 loop = True
                 while pirate_thirst >= 100 and loop == True:
-                    print(f"{pirate_name} cannot move drink grog")
+                    print(f"{pirate_name} can't move")
                     Drink_input = input(
-                        f"Drink grog [Y/N] else {pirate_name} dies \n")
+                        f"Would ye care for some grog to quench yer thirst [Y/N]. We wouldn't want ye to meet Davy Jones, now would we? \n")
                     if Drink_input.lower() == 'y':
                         Pirate_Function.set_reset_thirst()
                         Pirate_Function.drink_grog()
                         loop = False
 
                     elif Drink_input.lower() == 'n':
-                        print("Drink grog or you die")
+                        print()
 
                     elif Drink_input.lower() == 'quit':
                         print("*** Quitting the game ....  ***")
@@ -598,6 +614,8 @@ class GAME():
                         print("+=======================+\n")
 
                 # If False, It does not allow the pirate to walk beyond the maps border and goes on a constant loop till he changes direction which is within the map
+                print("\nTREASURE MAP")
+                print("==============")
                 Island_Function.Display_island()
                 Pirate_Function.direction(Mapsize)
                 pirate_position = Pirate_Function.get_direction()
@@ -612,7 +630,7 @@ class GAME():
                     # Sets pirates location to the which was before contact with water
                     Pirate_Function.set_previous_direction()
                     print(
-                        "You have contacted water. Change your direction else your drown")
+                        "Arrr! Water ahead! Watch yer step, matey with a wooden leg! Change course or risk a soggy fate")
                     Pirate_Function.direction(Mapsize)
                     pirate_position = Pirate_Function.get_direction()
                     Detect_water = Island_Function.find_water(pirate_position)
@@ -620,14 +638,14 @@ class GAME():
                 # Island
                 Treasure_postion = Island_Function.get_treasure_location()
                 if Treasure_postion == pirate_position:
-                    print("Congrajulation you found the Treasure")
+                    print("Avast! Treasure found! Yo ho ho and a bottle of rum!")
                     Island_Function.display_treasure()
                     exit()
 
                 loop = True
                 while loop == True:
                     Compass_input = input(
-                        "Would you like to see your location in the compass[Y/N] : ")
+                        "Arrr! Fancy a glance at yer bearings on the compass? [Y/N] : ")
 
                     if Compass_input.lower() == 'y':
                         Compass_Function = COMPASS(
