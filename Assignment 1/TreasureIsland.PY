@@ -1,6 +1,11 @@
 '''
 File: TreasureIsland.py
 Description: A brief description of this Python module.
+This is the code for the Treasure Island game, which has been coded the structure based on the user input
+through user input the code does various function from moving the pirate, finding the treasure, selecting the difficulty of the map, using the compass, and the game instructions
+This code has been structured in a way that does not take invalid input from the use and has been almost made error free (Hopefully) with all the functions accordingly to what it is assigned to do.
+Thank you and please enjoy
+
 Author: Sherwin John Miranda
 ID: 110417362
 Username: MIRSY007
@@ -76,8 +81,9 @@ class PIRATE():
                     loop = False
                 else:
                     print("Cannot go outside the map")
-                    self.direction(island)
-
+                    self.direction(island)    
+    
+    # Given to set a previous direction to use when pirate come in contact with water
     def set_previous_direction(self):
         if self.__pirate_direction.upper() == 'NORTH' or self.__pirate_direction == '1':
             self.__row += 1
@@ -95,6 +101,7 @@ class PIRATE():
             self.__column -= 1
             self.__pirate_postion = [self.__row, self.__column]
 
+    # Used to replace the previous direction of pirate to "E" when the pirate changes direction
     def set_Explored_direction(self):
         self.prev_row = self.__row
         self.prev_column = self.__column
@@ -173,6 +180,7 @@ class ISLAND():
             t_column = random.randint(0, self.__column - 1)
         # Just used to verify if treasure is implemented within the map or not
         # self.__map[t_row][t_column] = 'T '
+
         # This is for Determine treasure location whihc is used in the class "Compass"
         self.__Treasure_location = [t_row, t_column]
 
@@ -262,9 +270,8 @@ class COMPASS():
     # Determines the Treasure location using from the mentioned above variable/function
     def determine_location(self):
         # This is used to determine distance between pirate and treasure
-        self.__treasure_locator = (
-            self.__pirate_pos[0] - self.__treasure_pos[0]) + (self.__pirate_pos[1] - self.__pirate_pos[1])
-
+        self.__treasure_locator = abs(self.__pirate_pos[0] - self.__treasure_pos[0]) + abs(self.__pirate_pos[1] - self.__treasure_pos[1])
+        
         # Displays the message based on the distance
         if self.__treasure_locator > 7:
             print(f"==============================================\nColder - {self.__name} is far from the treasure \n==============================================\n")
@@ -417,10 +424,10 @@ class GAME_INSTRUCTION():
 
 class GAME():
     def display_game(self, user):
-        print("\n+---------------------------------------------------------------+")
-        print("| *** Important - If you want to quit the game, Type 'Quit' *** |")
-        print("+---------------------------------------------------------------+")
         if user == 'Y':
+            print("\n+---------------------------------------------------------------+")
+            print("| *** Important - If you want to quit the game, Type 'Quit' *** |")
+            print("+---------------------------------------------------------------+")
             loop = True
             while loop == True:
                 read_instruction_input = input(
@@ -551,6 +558,7 @@ class GAME():
             Mapsize = Island_Function.get_mapsize()
 
             # Pirate
+            # To create a random pirate location as well as a fixed centre pirate location within the map
             loop = True
             while loop == True:
                 Pirate_location_input = input("\n\nWhere be ye wantin to start yer adventure matey? \n1. Random location \n2. Centre of the Map \nInput : " )
@@ -674,7 +682,7 @@ class GAME():
                 print(f" |-> Pirate thirst level : {pirate_thirst}")
                 print(f" |-> Distance Traveled : {Distance_Traveled}Km\n\n")
 
-
+# User input to start the game or not
 user = input("Would you like to the play the game 'Treasure Island' [Y/N] : ")
 
 if user.lower() == 'quit':
